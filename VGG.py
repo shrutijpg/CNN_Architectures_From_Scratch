@@ -6,42 +6,22 @@ import os
 
 
 def build_vgg():
-    #Whole architecture of the lenet
     model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(64,(3,3),activation='relu',input_shape=(32,32,3),padding = 'same'),
-        tf.keras.layers.Conv2D(64,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.MaxPooling2D((2,2)),
+        layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(32, 32, 3)),
+        layers.BatchNormalization(),
+        layers.Conv2D(64, (3, 3), activation='relu', padding='same'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
 
+        layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
+        layers.BatchNormalization(),
+        layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
 
-        tf.keras.layers.Conv2D(128,(3,3),activation='relu',padding = 'same'),
-        tf.keras.layers.Conv2D(128,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.MaxPooling2D((2,2)),
-
-        tf.keras.layers.Conv2D(256,(3,3),activation='relu',padding = 'same'),
-        tf.keras.layers.Conv2D(256,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.Conv2D(256,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.MaxPooling2D((2,2)),
-
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding = 'same'),
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.MaxPooling2D((2,2)),
-
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding = 'same'),
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.Conv2D(512,(3,3),activation='relu',padding='same'),
-        tf.keras.layers.MaxPooling2D((2,2)),
-
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(4096,activation='relu'),
-        tf.keras.layers.Dropout(.5),
-        tf.keras.layers.Dense(4096,activation='relu'),
-        tf.keras.layers.Dropout(.5),
-        tf.keras.layers.Dense(10,activation='softmax'),
-
-#mini version of vgg
-
-
-        
+        layers.Flatten(),
+        layers.Dense(256, activation='relu'),
+        layers.Dropout(0.5),
+        layers.Dense(10, activation='softmax')
     ])
     return model
