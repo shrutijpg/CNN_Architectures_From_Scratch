@@ -69,10 +69,10 @@ def train_and_evaluate(model,model_name,epochs=10):
 
 # Main execution
 if __name__ == "__main__":
-    acc1 = train_and_evaluate(build_alexet(), 'AlexNet', epochs=10)
-    acc2 = train_and_evaluate(build_lenet(), 'LeNet', epochs=10)
-    acc3 = train_and_evaluate(build_vgg(), 'VGG', epochs=10)
-    acc4 = train_and_evaluate(build_resnet(), 'ResNet', epochs=10)
+    acc1 = train_and_evaluate(build_alexet(), 'AlexNet', epochs=20)
+    acc2 = train_and_evaluate(build_lenet(), 'LeNet', epochs=20)
+    acc3 = train_and_evaluate(build_vgg(), 'VGG', epochs=20)
+    acc4 = train_and_evaluate(build_resnet(), 'ResNet', epochs=20)
 
     models = ['AlexNet', 'LeNet', 'VGG', 'ResNet']
     accuracies = [acc1, acc2, acc3, acc4]
