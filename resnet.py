@@ -6,8 +6,8 @@ import os
 
 def residual_block(x,filters):
     sortcut = x
-    x=layers.Con2D(filters,(3,3),padding='same',activation='relu')(x)
-    x=layers.Con2D(filters,(3,3),padding='same')(x)
+    x=layers.Conv2D(filters,(3,3),padding='same',activation='relu')(x)
+    x=layers.Conv2D(filters,(3,3),padding='same')(x)
     x = layers.add([x,sortcut])
     x = layers.Activation('relu')(x)
     return x

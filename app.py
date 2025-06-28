@@ -49,7 +49,7 @@ def plot_metrics(history, model_name):
     plt.close()  # Avoid displaying inline during batch runs
 
 
-def train_and_evaluate(model,model_name,epochs=1):
+def train_and_evaluate(model,model_name,epochs=10):
     model.compile(optimizer = 'adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
     checkpointing = tf.keras.callbacks.ModelCheckpoint(
@@ -58,10 +58,10 @@ def train_and_evaluate(model,model_name,epochs=1):
     if model_name == 'LeNet':
         x_train_gray = tf.image.rgb_to_grayscale(x_train)
         x_test_gray = tf.image.rgb_to_grayscale(x_test)
-        history = model.fit(x_train_gray, y_train, epochs=1, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
+        history = model.fit(x_train_gray, y_train, epochs=10, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
         test_loss, test_acc = model.evaluate(x_test_gray, y_test,verbose =1)
     else:
-        history = model.fit(x_train, y_train, epochs=1, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
+        history = model.fit(x_train, y_train, epochs=10, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
         test_loss, test_acc = model.evaluate(x_test,y_test,verbose=1)
     plot_metrics(history, model_name)
     return test_acc
@@ -69,10 +69,10 @@ def train_and_evaluate(model,model_name,epochs=1):
 
 # Main execution
 if __name__ == "__main__":
-    acc1 = train_and_evaluate(build_alexet(), 'AlexNet', epochs=1)
-    acc2 = train_and_evaluate(build_lenet(), 'LeNet', epochs=1)
-    acc3 = train_and_evaluate(build_vgg(), 'VGG', epochs=1)
-    acc4 = train_and_evaluate(build_resnet(), 'ResNet', epochs=1)
+    acc1 = train_and_evaluate(build_alexet(), 'AlexNet', epochs=10)
+    acc2 = train_and_evaluate(build_lenet(), 'LeNet', epochs=10)
+    acc3 = train_and_evaluate(build_vgg(), 'VGG', epochs=10)
+    acc4 = train_and_evaluate(build_resnet(), 'ResNet', epochs=10)
 
     models = ['AlexNet', 'LeNet', 'VGG', 'ResNet']
     accuracies = [acc1, acc2, acc3, acc4]
