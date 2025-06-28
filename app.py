@@ -49,7 +49,7 @@ def plot_metrics(history, model_name):
     plt.close()  # Avoid displaying inline during batch runs
 
 
-def train_and_evaluate(model,model_name,epochs=10):
+def train_and_evaluate(model,model_name,epochs=20):
     model.compile(optimizer = 'adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
     checkpointing = tf.keras.callbacks.ModelCheckpoint(
@@ -58,10 +58,10 @@ def train_and_evaluate(model,model_name,epochs=10):
     if model_name == 'LeNet':
         x_train_gray = tf.image.rgb_to_grayscale(x_train)
         x_test_gray = tf.image.rgb_to_grayscale(x_test)
-        history = model.fit(x_train_gray, y_train, epochs=10, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
+        history = model.fit(x_train_gray, y_train, epochs=20, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
         test_loss, test_acc = model.evaluate(x_test_gray, y_test,verbose =1)
     else:
-        history = model.fit(x_train, y_train, epochs=10, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
+        history = model.fit(x_train, y_train, epochs=20, batch_size=64, validation_split=0.2, verbose=1,callbacks = [checkpointing])
         test_loss, test_acc = model.evaluate(x_test,y_test,verbose=1)
     plot_metrics(history, model_name)
     return test_acc

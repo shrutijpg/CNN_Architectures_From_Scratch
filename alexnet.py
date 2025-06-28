@@ -20,7 +20,7 @@ def build_alexet():
         tf.keras.layers.Dropout(.5),
         tf.keras.layers.Dense(4096,activation='relu'),
         tf.keras.layers.Dropout(.5),
-        tf.keras.layers.Dense(10,activation='relu')
+        tf.keras.layers.Dense(10,activation='softmax')
 
 
 
