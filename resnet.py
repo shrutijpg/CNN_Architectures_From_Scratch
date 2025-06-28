@@ -4,13 +4,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-def residual_block(x,filters):
-    sortcut = x
-    x=layers.Conv2D(filters,(3,3),padding='same',activation='relu')(x)
-    x=layers.Conv2D(filters,(3,3),padding='same')(x)
-    x = layers.add([x,sortcut])
+def residual_block(x, filters):
+    shortcut = x
+
+    # First conv layer
+    x = layers.Conv2D(filters, (3, 3), padding='same', activation='relu')(x)
+    # Second conv layer
+    x = layers.Conv2D(filters, (3, 3), padding='same')(x)
+
+    # Match dimensions if needed using 1x1 conv
+    if shortcut.shape[-1] != filters:
+        shortcut = layers.Conv2D(filters, (1, 1), padding='same')(shortcut)
+
+    # Add and activate
+    x = layers.add([x, shortcut])
     x = layers.Activation('relu')(x)
     return x
+
 
 
 def build_resnet():
@@ -23,5 +33,8 @@ def build_resnet():
     output = layers.Dense(10,activation='softmax')(x)
     model = models.Model(input,output)
     return model
+
+
+
 
 
